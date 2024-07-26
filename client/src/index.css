@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  font-family: "Outfit", sans-serif;
+  @apply relative w-[100vw] overflow-hidden box-border m-0 p-0
+}
+
+.text {
+  @apply text-color-light dark:text-color-dark;
+}
+
+
+.card {
+  @apply w-full bg-card-bg rounded-2xl p-5;
+}
+
+/* body{
+  display:flex;
+  items:center;
+  justify-content:center;
+} */
+ 
+.home-card{
+  border-bottom-right-radius: 130px;
+}
+
+
+

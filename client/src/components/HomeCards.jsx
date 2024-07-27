@@ -1,8 +1,7 @@
 import { FiArrowRight } from "react-icons/fi";
-import propTypes from 'prop-types'
 
 
-const HomeCards = ( props ) => {
+const HomeCards = ({ props }) => {
   return (
     <>
       <div className="inline-block bg-card-bg bg-opacity-35 backdrop-blur-sm  border-none h-36 w-15 rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl rounded-br-3xl shadow-xl ">
@@ -12,17 +11,11 @@ const HomeCards = ( props ) => {
             <button className="bg-red-500 text-teal-50 border-none arrow-button border w-20 h-20 rounded-full flex justify-center items-center font-bold text-3xl shadow-xl text-right">
               <FiArrowRight />
             </button>
-            </div>
+          </div>
         </div>
       </div>
     </>
   )
 }
-HomeCards.propTypes = {
-  title: propTypes.string,
-  } 
-  HomeCards.defaultProps={
-      title: "Management",
-      
-     }
+
 export default HomeCards

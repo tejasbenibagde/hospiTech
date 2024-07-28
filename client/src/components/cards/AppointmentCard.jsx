@@ -1,5 +1,5 @@
 
-import CircleButton from "../components/CircleButton";
+import CircleButton from "../CircleButton";
 import { GoArrowUpRight, GoPencil, GoTrash } from "react-icons/go";
 
 function AppointmentCard() {
@@ -43,7 +43,7 @@ function AppointmentCard() {
       {appointments.map((appointment) => (
         <div key={appointment.id} style={{ width: "calc(100%)" }}>
           <div className="appointment-card bg-card-bg rounded-2xl flex flex-col justify-between gap-2 bg-opacity-35 backdrop-blur-sm">
-            <div className="appointment flex flex-row justify-between items-center  text-teal-50 pt-4 pl-4 pr-4">
+            <div className="appointment flex flex-row justify-between items-center  text pt-4 pl-4 pr-4">
               <div className="patient-name text-xl font-semibold">
                 {appointment.Name}
               </div>
@@ -54,7 +54,7 @@ function AppointmentCard() {
                 id: {appointment.id}
               </div>
             </div>
-            <div className="patient-info text-teal-50 pl-4 pr-4 text-sm leading-4">
+            <div className="patient-info text pl-4 pr-4 text-sm leading-4">
               <p className="contact">Contact: {appointment.Contact}</p>
               <p className="time">Time: {appointment.Time}</p>
               <p className="description">

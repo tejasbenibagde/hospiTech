@@ -1,9 +1,9 @@
-import { AppointmentCard } from "../components";
+import { AppointementCards } from "../components";
 
 const Appointments = () => {
     return (
         <div>
-            <AppointmentCard/>
+            <AppointementCards />
         </div>
     )
 }

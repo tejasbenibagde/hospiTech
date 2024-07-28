@@ -1,4 +1,4 @@
-import { Doctor, Patient } from "@model";
+import { Doctor, Patient, IPatient } from "@model";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { createToken } from "@util";
@@ -112,9 +112,10 @@ const getPatientDetailsByID = async (req: Request, res: Response) => {
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
-    const patient = doctor.patients.find(
-      (p: any) => p._id.toString() === patientID
-    );
+
+    const patients = doctor.patients as IPatient[];
+
+    const patient = patients.find((p) => p._id.toString() === patientID);
     if (!patient) {
       return res
         .status(404)
@@ -135,16 +136,14 @@ const deletePatient = async (req: Request, res: Response) => {
   try {
     const { doctorID, patientID } = req.params;
 
-    // Find the doctor by ID
     const doctor = await Doctor.findById(doctorID);
 
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
 
-    // Check if the patient belongs to the doctor
     const patientIndex = doctor.patients.findIndex(
-      (p: any) => p.toString() === patientID
+      (p) => p.toString() === patientID
     );
 
     if (patientIndex === -1) {
@@ -153,11 +152,9 @@ const deletePatient = async (req: Request, res: Response) => {
         .json({ message: "Patient not found for this doctor" });
     }
 
-    // Remove the patient from the doctor's patients array
     doctor.patients.splice(patientIndex, 1);
     await doctor.save();
 
-    // Remove the patient from the Patient collection
     await Patient.findByIdAndDelete(patientID);
 
     return res.status(200).json({ message: "Patient deleted successfully" });

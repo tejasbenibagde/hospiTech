@@ -25,5 +25,26 @@ const addPatientHealthMetrics = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-const getPatientHealthMetrics = () => {};
+const getPatientHealthMetrics = async (req: Request, res: Response) => {
+  const { patientID } = req.params;
+
+  try {
+    const healthMetrics = await PatientHealthMetrics.findOne({ patientID })
+      .populate("patientID", "name contact")
+      .exec();
+
+    if (!healthMetrics) {
+      return res
+        .status(404)
+        .json({ message: "Health metrics not found for this patient." });
+    }
+
+    res.status(200).json(healthMetrics);
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while retrieving health metrics.",
+      error,
+    });
+  }
+};
 export { addPatientHealthMetrics, getPatientHealthMetrics };

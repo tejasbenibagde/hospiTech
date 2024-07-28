@@ -1,6 +1,13 @@
-import Doctor from "./doctor";
+import Doctor, { IDoctor } from "./doctor";
 import Appointment from "./appointment";
-import Patient from "./patient";
+import Patient, { IPatient } from "./patient";
 import PatientHealthMetrics from "./patientHealthMetrics";
 
-export { Doctor, Appointment, Patient, PatientHealthMetrics };
+export {
+  Doctor,
+  Appointment,
+  Patient,
+  PatientHealthMetrics,
+  IPatient,
+  IDoctor,
+};

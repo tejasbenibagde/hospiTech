@@ -35,4 +35,8 @@ const validateMetrics = () => {
   ];
 };
 
-export { validateMetrics };
+const validatePatientID = () => [
+  check("patientID").isMongoId().withMessage("Invalid Patient ID"),
+];
+
+export { validateMetrics, validatePatientID };

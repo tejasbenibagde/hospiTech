@@ -2,7 +2,7 @@ import jwt, { VerifyErrors } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
 interface AuthenticatedRequest extends Request {
-  user?: any;
+  user?: JwtPayload;
 }
 
 interface JwtPayload {
@@ -27,13 +27,13 @@ const verifyToken = (
   jwt.verify(
     token,
     process.env.JWT_SECRET as string,
-    (err: VerifyErrors | null, decoded: any) => {
+    (err: VerifyErrors | null, decoded) => {
       if (err) {
         return res.status(403).json({ message: "Token is not valid." });
       }
 
       req.user = decoded as JwtPayload;
-      next(); 
+      next();
     }
   );
 };

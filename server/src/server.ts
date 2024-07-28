@@ -23,7 +23,14 @@ const MONGO_URI =
     : process.env.MONGO_PRODUCTION_URI;
 connectToDatabase(MONGO_URI).catch(console.error);
 
-app.use(cors({ origin: CLIENT_URL }));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "PUT", "DELETE", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 
 app.use("/api/doctors", doctorRoutes);

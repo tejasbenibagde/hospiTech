@@ -1,17 +1,15 @@
-
-// This file is a entry point of the application and responsible for the rendering of 
-// navbar and page
-
-// Important notice if you want to change anything from this file ask me befor doing that
-
-import Navbar from "./components/Navbar"
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navbar } from "./components";
 import { Outlet } from "react-router-dom";
 
 export default function App() {
+  const isDarkMode = useSelector((state) => state.darkMode.isDarkMode);
   return (
-    <div className="text-color-light dark:text-color-light px-5 py-7"
+    <div
+      className={`text-color-light dark:text-color-light px-5 py-7 ${isDarkMode ? 'dark' : ''}`}
       style={{
-        backgroundImage: `url('/background.png')`,
+        backgroundImage: `url(${isDarkMode ? '/background-dark.png' : '/background-light.png'})`,
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',

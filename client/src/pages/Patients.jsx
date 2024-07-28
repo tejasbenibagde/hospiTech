@@ -1,13 +1,9 @@
-
+import React from 'react'
 
 const Patients = () => {
   return (
-    <div>
-      <h1 className="text">Patients</h1>
-    </div>
+    <div>Patients</div>
   )
 }
 
-
 export default Patients
-

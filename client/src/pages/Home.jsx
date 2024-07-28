@@ -1,13 +1,13 @@
 
 import { Cards, DocterCards, SearchBar } from "../components";
-
 const Home = () => {
+
 
   return (
     <div className="flex flex-col gap-5 max-w-[100vw] h-full">
 
       <DocterCards />
-      
+
       <div className="para-size w-screen text-left font-extralight flex flex-col justify-center gap-5">
         <p className="text text-sm font-thin">
           Efficiently manage patient records,appointments and hospitals

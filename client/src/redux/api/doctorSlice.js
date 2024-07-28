@@ -8,9 +8,11 @@ const baseURL = `${apiUrl}/api/doctors`;
 export const doctorApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
-      method: "POST",
-      url: `${baseURL}/register`,
-      transformResponse: (response) => response.data,
+      query: (data) => ({
+        method: "POST",
+        url: `${baseURL}/register`,
+        body: data,
+      }),
     }),
     getPatient: builder.query({
       query: ({ doctorID, patientID }) => ({

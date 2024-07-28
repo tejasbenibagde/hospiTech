@@ -1,7 +1,7 @@
 // redux/store.js
 
 import { configureStore } from "@reduxjs/toolkit";
-import darkModeReducer from "./features/darkModeSlice";
+import { darkModeReducer } from "./features";
 import { apiSlice } from "./api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 

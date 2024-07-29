@@ -1,7 +1,7 @@
+
 import { IoCloseSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import DarkModeToggle from "../DarkModeToggle";
-import PropTypes from 'prop-types';
 
 const links = [
   { id: 1, label: "Home", path: "/" },
@@ -19,6 +19,7 @@ const NavMenu = ({ close }) => {
             Hospi<span className="tech text-primary font-bold">Tech.</span>
           </h1>
         </div>
+
         <div className="flex items-center justify-center gap-2">
         <div className="togg bg-card-bg h-8 w-8 rounded-full flex items-center justify-center ">
           <DarkModeToggle />
@@ -35,9 +36,6 @@ const NavMenu = ({ close }) => {
       </div>
     </div>
   );
-};
-NavMenu.propTypes = {
-  close: PropTypes.func.isRequired, // Define the `close` prop type
 };
 
 export default NavMenu;

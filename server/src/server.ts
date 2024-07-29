@@ -25,7 +25,7 @@ connectToDatabase(MONGO_URI).catch(console.error);
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: CLIENT_URL,
     methods: ["GET", "PUT", "DELETE", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,

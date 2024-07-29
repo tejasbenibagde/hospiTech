@@ -39,5 +39,5 @@ app.use("/api/appointments", appointmentRoutes);
 app.use("/api/patient-health-metrics", patientHealthRoutes);
 
 app.listen(PORT, () => {
-  console.log(`server listening on ${PORT}`);
+  console.log(`server listening on http://localhost:${PORT}`);
 });

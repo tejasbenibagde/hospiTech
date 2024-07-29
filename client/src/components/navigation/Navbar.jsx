@@ -21,7 +21,8 @@ function Nav() {
                     <Link to={"/notifications"} className="bg-card-bg h-8 w-8 rounded-full flex items-center justify-center">
                         <FiBell color="#F5E9DD" size={15} />
                     </Link>
-                    <button onClick={() => setNav(true)} className="bg-card-bg h-8 w-16 rounded-full flex items-center justify-center">
+                    <button onClick={() => setNav(true)} className="bg-card-bg h-8 w-16 rounded-full flex items-center justify-center cursor-pointer">
+
                         <TfiLineDouble color="#F5E9DD" size={25} />
                     </button>
                 </div>

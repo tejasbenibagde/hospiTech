@@ -17,6 +17,9 @@ export default {
           light: "#494949",
           dark: "#F5E9DD",
         },
+        bg: {
+          customBg:'#F5E9DD'
+        }
       },
     },
   },

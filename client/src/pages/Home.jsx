@@ -1,5 +1,7 @@
 
-import { Cards, DocterCards, SearchBar } from "../components";
+
+import { Cards, DocterCards } from "../components";
+
 const Home = () => {
 
 
@@ -19,6 +21,8 @@ const Home = () => {
       </div>
 
       <Cards title="hello" />
+      
+
 
     </div>
   );

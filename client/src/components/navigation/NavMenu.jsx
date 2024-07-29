@@ -1,6 +1,8 @@
-import React from "react";
+
+import { IoCloseSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import DarkModeToggle from "../DarkModeToggle";
+
 const links = [
   { id: 1, label: "Home", path: "/" },
   { id: 2, label: "Patient", path: "/patients" },
@@ -17,14 +19,17 @@ const NavMenu = ({ close }) => {
             Hospi<span className="tech text-primary font-bold">Tech.</span>
           </h1>
         </div>
-        <div className="flex items-center justify-center gap-5">
+
+        <div className="flex items-center justify-center gap-2">
+        <div className="togg bg-card-bg h-8 w-8 rounded-full flex items-center justify-center ">
           <DarkModeToggle />
-          <button onClick={close} className="text">Close</button>
+          </div>
+          <button onClick={close} className=" bg-card-bg  dark:text-primary h-8 w-16 rounded-full flex items-center justify-center font-bold text-xl"><IoCloseSharp/></button>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center text-4xl gap-5">
+      <div className="flex flex-col items-center justify-center text-center  text-xl gap-5 pt-8 cursor-pointer">
         {links.map(link => (
-          <Link key={link.id} to={link.path} className="text" onClick={close}>
+          <Link key={link.id} to={link.path} className="text hover:text-primary" onClick={close}>
             {link.label}
           </Link>
         ))}

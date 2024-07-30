@@ -59,20 +59,27 @@ const loginDoctor = async (req: Request, res: Response) => {
 const getPatientDetailsForDoctor = async (req: Request, res: Response) => {
   try {
     const { doctorID } = req.params;
-    const patientsForDoctor = await Doctor.findById(doctorID).populate({
+
+    // Find the doctor and populate the patients
+    const doctor = await Doctor.findById(doctorID).populate({
       path: "patients",
       options: { sort: { createdAt: -1 } },
     });
 
-    if (!patientsForDoctor) {
+    // Check if doctor exists
+    if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
-    if (!patientsForDoctor.patients) {
+
+    // Check if doctor has patients
+    if (!doctor.patients || doctor.patients.length === 0) {
       return res
         .status(404)
         .json({ message: "No patients found for this doctor" });
     }
-    return res.status(200).json(patientsForDoctor.patients);
+
+    // Return the list of patients
+    return res.status(200).json(doctor.patients);
   } catch (error) {
     console.error("Error fetching doctor with patient details:", error);
     res.status(500).json({ message: "Internal server error" });

@@ -21,7 +21,12 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    getPatient: builder.query({
+    getPatientsByDoctor: builder.query({
+      query: (doctorID) => ({
+        url: `${baseURL}/patients/${doctorID}`,
+      }),
+    }),
+    getPatientByID: builder.query({
       query: ({ doctorID, patientID }) => ({
         url: `${baseURL}/patients/${doctorID}/${patientID}`,
       }),
@@ -29,5 +34,5 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetPatientQuery, useLoginMutation, useRegisterMutation } =
+export const { useLoginMutation, useRegisterMutation, useGetPatientByIDQuery, useGetPatientsByDoctorQuery} =
   doctorApiSlice;

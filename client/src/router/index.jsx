@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
-import { Appointments, Home, PatientHistory, Patients, Notifications, Login, Register } from "../pages"
+import { Appointments, Home, PatientHistory, Patients, Notifications, Login, Register, AddPatient } from "../pages"
 import App from "../App"
 
 const router = createBrowserRouter(
@@ -9,6 +9,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/patients" element={<Patients />} />
+      <Route path="/add-patient" element={<AddPatient />} />
       <Route path="/appointments" element={<Appointments />} />
       <Route path="/patient-history" element={<PatientHistory />} />
       <Route path="/notifications" element={<Notifications />} />

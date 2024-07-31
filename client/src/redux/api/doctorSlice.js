@@ -26,6 +26,13 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
         url: `${baseURL}/patients/${doctorID}`,
       }),
     }),
+    addPatientForDoctor: builder.mutation({
+      query: ({ doctorID, data }) => ({
+        url: `${baseURL}/patients/${doctorID}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     getPatientByID: builder.query({
       query: ({ doctorID, patientID }) => ({
         url: `${baseURL}/patients/${doctorID}/${patientID}`,
@@ -34,5 +41,10 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetPatientByIDQuery, useGetPatientsByDoctorQuery} =
-  doctorApiSlice;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGetPatientByIDQuery,
+  useGetPatientsByDoctorQuery,
+  useAddPatientForDoctorMutation,
+} = doctorApiSlice;

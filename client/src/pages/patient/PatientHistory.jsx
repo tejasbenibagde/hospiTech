@@ -1,4 +1,4 @@
-import { PHistoryCard, FilterBtn } from "../components";
+import { PHistoryCard, FilterBtn } from "../../components";
 
 const PatientHistory = () => {
   return (

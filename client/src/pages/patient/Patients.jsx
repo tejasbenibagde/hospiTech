@@ -1,6 +1,6 @@
-import React from 'react';
+import { Link } from "react-router-dom"
 import { useSelector } from 'react-redux';
-import { useGetPatientsByDoctorQuery } from '../redux/api/doctorSlice';
+import { useGetPatientsByDoctorQuery } from '../../redux/api/doctorSlice';
 
 const Patients = () => {
   const { user } = useSelector((state) => state.auth);
@@ -26,7 +26,7 @@ const Patients = () => {
           </h1>
         </div>
         <div>
-          <h1 className='text w-10 h-10 bg-card-bg rounded-full flex items-center justify-center'>+</h1>
+          <Link to={"/add-patient"} className='text w-10 h-10 bg-card-bg rounded-full flex items-center justify-center'>+</Link>
         </div>
       </div>
       <div className='flex flex-col gap-5'>

@@ -1,5 +1,3 @@
-// reduc/api/doctorSlice.js
-
 import { apiUrl } from "../../constants";
 import { apiSlice } from "./apiSlice";
 
@@ -27,10 +25,10 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     addPatientForDoctor: builder.mutation({
-      query: ({ doctorID, data }) => ({
+      query: ({ doctorID, patient }) => ({
         url: `${baseURL}/patients/${doctorID}`,
         method: "POST",
-        body: data,
+        body: patient,
       }),
     }),
     getPatientByID: builder.query({

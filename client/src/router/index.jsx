@@ -1,6 +1,20 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
-import { Appointments, Home, PatientHistory, Patients, Notifications, Login, Register, AddPatient } from "../pages"
-import App from "../App"
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+import {
+  Appointments,
+  Home,
+  PatientHistory,
+  Patients,
+  Notifications,
+  Login,
+  Register,
+  AddPatient,
+  PatientDetail,
+} from "../pages";
+import App from "../App";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -13,8 +27,9 @@ const router = createBrowserRouter(
       <Route path="/appointments" element={<Appointments />} />
       <Route path="/patient-history" element={<PatientHistory />} />
       <Route path="/notifications" element={<Notifications />} />
+      <Route path="/patient/:id" element={<PatientDetail />} />
     </Route>
   )
-)
+);
 
-export default router
+export default router;

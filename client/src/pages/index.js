@@ -6,6 +6,7 @@ import Notifications from "./Notifications";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import AddPatient from "./patient/AddPatient";
+import PatientDetail from "./patient/PatientDetail";
 export {
   Home,
   Patients,
@@ -14,5 +15,6 @@ export {
   Notifications,
   Login,
   Register,
-  AddPatient
+  AddPatient,
+  PatientDetail
 };

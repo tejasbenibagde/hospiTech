@@ -13,6 +13,7 @@ import {
   Register,
   AddPatient,
   PatientDetail,
+  AddAppointement,
 } from "../pages";
 import App from "../App";
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/patients" element={<Patients />} />
       <Route path="/add-patient" element={<AddPatient />} />
       <Route path="/appointments" element={<Appointments />} />
+      <Route path="/add-appointments/:id" element={<AddAppointement />} />
       <Route path="/patient-history" element={<PatientHistory />} />
       <Route path="/notifications" element={<Notifications />} />
       <Route path="/patient/:id" element={<PatientDetail />} />

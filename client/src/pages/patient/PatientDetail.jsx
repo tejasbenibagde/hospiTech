@@ -23,7 +23,9 @@ const PatientDetail = () => {
   return (
     <div className="patient-detail">
       <div className="p-5">
-        <Link className="text bg-primary">Add Appointment</Link>
+        <Link to={`/add-appointments/${id}`} className="text bg-primary">
+          Add Appointment
+        </Link>
       </div>
       <h1 className="text-2xl font-bold mb-4">{patientDetails?.name}</h1>
       <div className="mb-4">

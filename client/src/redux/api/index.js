@@ -2,3 +2,4 @@
 
 export * from "./apiSlice";
 export * from "./doctorSlice";
+export * from "./appointmentSlice";

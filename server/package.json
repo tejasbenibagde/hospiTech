@@ -28,10 +28,10 @@
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.1"
+    "typescript-eslint": "^7.16.1",
+    "@types/jsonwebtoken": "^9.0.6"
   },
   "dependencies": {
-    "@types/jsonwebtoken": "^9.0.6",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

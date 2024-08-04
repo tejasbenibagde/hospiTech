@@ -25,7 +25,6 @@ const AddAppointment = () => {
         data: { patient: id, date, purpose },
       }).unwrap();
       alert("Appointment scheduled successfully.");
-      // Optionally, redirect to another page or reset the form
       setPurpose("");
       setDate("");
     } catch (err) {

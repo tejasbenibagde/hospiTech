@@ -4,4 +4,4 @@ import CircleButton from "./CircleButton";
 export * from "./cards";
 export * from "./navigation";
 import FilterBtn from "./FilterBtn";
-export { DarkModeToggle, SearchBar, FilterBtn,CircleButton };
+export { DarkModeToggle, SearchBar, FilterBtn, CircleButton };

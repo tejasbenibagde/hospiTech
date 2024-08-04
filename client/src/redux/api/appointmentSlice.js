@@ -12,7 +12,13 @@ export const appointmentSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getAllAppointments: builder.query({
+      query: (doctorID) => ({
+        url: `${baseURL}/${doctorID}`,
+      }),
+    }),
   }),
 });
 
-export const { useAddAppointmentMutation } = appointmentSlice;
+export const { useAddAppointmentMutation, useGetAllAppointmentsQuery } =
+  appointmentSlice;

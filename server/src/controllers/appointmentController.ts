@@ -35,7 +35,6 @@ const scheduleAppointment = async (req: Request, res: Response) => {
 const getAllAppointments = async (req: Request, res: Response) => {
   try {
     const { doctorID } = req.params;
-    console.log("Doctor ID:", doctorID);
 
     const appointments = await Appointment.find({ doctor: doctorID })
       .populate({

@@ -17,8 +17,25 @@ export const appointmentSlice = apiSlice.injectEndpoints({
         url: `${baseURL}/${doctorID}`,
       }),
     }),
+    deleteAppointmentByID: builder.mutation({
+      query: ({ doctorID, appointmentID }) => ({
+        url: `${baseURL}/${doctorID}/${appointmentID}`,
+        method: "DELETE",
+      }),
+    }),
+    updateAppointmentByID: builder.mutation({
+      query: ({ doctorID, appointmentID, data }) => ({
+        url: `${baseURL}/${doctorID}/${appointmentID}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useAddAppointmentMutation, useGetAllAppointmentsQuery } =
-  appointmentSlice;
+export const {
+  useAddAppointmentMutation,
+  useGetAllAppointmentsQuery,
+  useDeleteAppointmentByIDMutation,
+  useUpdateAppointmentByIDMutation,
+} = appointmentSlice;

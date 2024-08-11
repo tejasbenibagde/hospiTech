@@ -43,14 +43,14 @@ const AddPatient = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(patient);
-    try {
-      const newPatient = { ...patient };
-      await addPatient({ doctorID: user._id, patient: newPatient }).unwrap();
-      alert("Patient added successfully");
-    } catch (err) {
-      console.error("Failed to add patient:", err);
-      alert("Failed to add patient");
-    }
+    // try {
+    //   const newPatient = { ...patient };
+    //   await addPatient({ doctorID: user._id, patient: newPatient }).unwrap();
+    //   alert("Patient added successfully");
+    // } catch (err) {
+    //   console.error("Failed to add patient:", err);
+    //   alert("Failed to add patient");
+    // }
   };
 
   const addItemToMedicalHistory = (key, item) => {
@@ -104,166 +104,161 @@ const AddPatient = () => {
     }));
   };
 
+  const registrationForm = [
+    {
+      type: "text",
+      label: "Enter your name",
+      placeholder: "e.g. John Smith",
+      value: patient.name,
+      onChange: (e) => setPatient({ ...patient, name: e.target.value }),
+      isInvalid: !patient.name,
+      required: true,
+    },
+    {
+      type: "date",
+      label: "Enter your Date Of Birth",
+      value: patient.dateOfBirth,
+      onChange: (e) => setPatient({ ...patient, dateOfBirth: e.target.value }),
+      isInvalid:
+        !patient.dateOfBirth || new Date(patient.dateOfBirth) > new Date(),
+      required: true,
+    },
+    {
+      type: "number",
+      label: "Enter your Contact Number",
+      placeholder: "Enter your contact number",
+      value: patient.contact,
+      onChange: (e) => setPatient({ ...patient, contact: e.target.value }),
+      isInvalid: !patient.contact,
+      required: true,
+    },
+    {
+      type: "select",
+      label: "Select Your Gender",
+      value: patient.gender,
+      onChange: (e) => setPatient({ ...patient, gender: e.target.value }),
+      isInvalid: !patient.gender,
+      required: true,
+      options: [
+        { value: "male", label: "Male" },
+        { value: "female", label: "Female" },
+        { value: "other", label: "Other" },
+      ],
+    },
+  ];
+
+  const emergencyContactForm = [
+    {
+      type: "text",
+      label: "Name",
+      placeholder: "e.g. Jane Doe",
+      value: patient.emergencyContact.name,
+      onChange: (e) =>
+        setPatient({
+          ...patient,
+          emergencyContact: {
+            ...patient.emergencyContact,
+            name: e.target.value,
+          },
+        }),
+      isInvalid: !patient.emergencyContact.name,
+      required: true,
+    },
+    {
+      type: "text",
+      label: "RelationShip",
+      placeholder: "e.g. Wife",
+      value: patient.emergencyContact.relationship,
+      onChange: (e) =>
+        setPatient({
+          ...patient,
+          emergencyContact: {
+            ...patient.emergencyContact,
+            relationship: e.target.value,
+          },
+        }),
+      isInvalid: !patient.emergencyContact.relationship,
+      required: true,
+    },
+    {
+      type: "number",
+      label: "Contact Number",
+      placeholder: "e.g. 123-456-7890",
+      value: patient.emergencyContact.contact,
+      onChange: (e) =>
+        setPatient({
+          ...patient,
+          emergencyContact: {
+            ...patient.emergencyContact,
+            contact: e.target.value,
+          },
+        }),
+      isInvalid: !patient.emergencyContact.contact,
+      required: true,
+    },
+  ];
+
+  const insuranceInformation = [
+    {
+      type: "text",
+      label: "SSN",
+      placeholder: "e.g. 123-45-6789",
+      value: patient.ssn,
+      onChange: (e) => setPatient({ ...patient, ssn: e.target.value }),
+      isInvalid: !patient.ssn,
+      required: true,
+    },
+    {
+      type: "text",
+      label: "Insurance Provider",
+      placeholder: "e.g. Aetna",
+      value: patient.insurance.provider,
+      onChange: (e) =>
+        setPatient({
+          ...patient,
+          insurance: {
+            ...patient.insurance,
+            provider: e.target.value,
+          },
+        }),
+      isInvalid: !patient.insurance.provider,
+      required: true,
+    },
+    {
+      type: "text",
+      label: "Policy Number",
+      placeholder: "e.g. 123456789",
+      value: patient.insurance.policyNumber,
+      onChange: (e) =>
+        setPatient({
+          ...patient,
+          insurance: {
+            ...patient.insurance,
+            policyNumber: e.target.value,
+          },
+        }),
+      isInvalid: !patient.insurance.policyNumber,
+      required: true,
+    },
+  ];
+
   return (
-    <div>
-      {/* <Form
+    <div className="flex flex-col gap-5">
+      <Form
         action={handleFormSubmit}
-        inputs={[
-          {
-            type: "text",
-            label: "Enter your name",
-            placeholder: "Enter your name",
-            name: "name",
-            value: patient.name,
-            onChange: (e) => setPatient({ ...patient, name: e.target.value }),
-            isInvalid: !patient.name,
-            required: true,
-          },
-          {
-            type: "date",
-            label: "Enter your Date Of Birth",
-            placeholder: "Enter your name",
-            name: "name",
-            isInvalid: !patient.date,
-            required: true,
-          },
-          {
-            type: "date",
-            label: "Enter your Contact Number",
-            placeholder: "Enter your name",
-            name: "name",
-            isInvalid: !patient.date,
-            required: true,
-          },
-          {
-            type: "date",
-            label: "Enter the SSN",
-            placeholder: "Enter your name",
-            name: "name",
-            isInvalid: !patient.date,
-            required: true,
-          },
-          {
-            type: "date",
-            label: "Enter the SSN",
-            placeholder: "Select Your Gender",
-            name: "name",
-            isInvalid: !patient.date,
-            required: true,
-          },
-        ]}
-      /> */}
-      <form onSubmit={handleFormSubmit} className="flex gap-5 flex-col">
-        <Input
-          isInvalid={patient.name === ""}
-          type="text"
-          placeholder="Name"
-          value={patient.name}
-          onChange={(e) => setPatient({ ...patient, name: e.target.value })}
-          focusBorderColor={patient.name !== "" ? "#F5E9DD" : "#E85D56"}
-          errorBorderColor="red.300"
-        />
-        <Input
-          type="date"
-          placeholder="Date of Birth"
-          value={patient.dateOfBirth}
-          onChange={(e) =>
-            setPatient({ ...patient, dateOfBirth: e.target.value })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Gender"
-          value={patient.gender}
-          onChange={(e) => setPatient({ ...patient, gender: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Contact"
-          value={patient.contact}
-          onChange={(e) => setPatient({ ...patient, contact: e.target.value })}
-        />
-      </form>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          placeholder="Emergency Contact Name"
-          value={patient.emergencyContact.name}
-          onChange={(e) =>
-            setPatient({
-              ...patient,
-              emergencyContact: {
-                ...patient.emergencyContact,
-                name: e.target.value,
-              },
-            })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Relationship"
-          value={patient.emergencyContact.relationship}
-          onChange={(e) =>
-            setPatient({
-              ...patient,
-              emergencyContact: {
-                ...patient.emergencyContact,
-                relationship: e.target.value,
-              },
-            })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Contact"
-          value={patient.emergencyContact.contact}
-          onChange={(e) =>
-            setPatient({
-              ...patient,
-              emergencyContact: {
-                ...patient.emergencyContact,
-                contact: e.target.value,
-              },
-            })
-          }
-        />
-      </form>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          placeholder="SSN"
-          value={patient.ssn}
-          onChange={(e) => setPatient({ ...patient, ssn: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Insurance Provider"
-          value={patient.insurance.provider}
-          onChange={(e) =>
-            setPatient({
-              ...patient,
-              insurance: {
-                ...patient.insurance,
-                provider: e.target.value,
-              },
-            })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Policy Number"
-          value={patient.insurance.policyNumber}
-          onChange={(e) =>
-            setPatient({
-              ...patient,
-              insurance: {
-                ...patient.insurance,
-                policyNumber: e.target.value,
-              },
-            })
-          }
-        />
-      </form>
+        inputs={registrationForm}
+        title={"Patient Registration"}
+      />
+      <Form
+        action={handleFormSubmit}
+        inputs={emergencyContactForm}
+        title={"Emergency Contact"}
+      />
+      <Form
+        action={handleFormSubmit}
+        inputs={insuranceInformation}
+        title={"Insurance Information"}
+      />
       <form onSubmit={handleFormSubmit}>
         <AddItem
           items={patient.medicalHistory.allergies}

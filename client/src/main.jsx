@@ -13,11 +13,12 @@ import {
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
-const { Input } = chakraTheme.components;
+const { Input, Select } = chakraTheme.components;
 
 const theme = extendBaseTheme({
   components: {
     Input,
+    Select,
   },
 });
 

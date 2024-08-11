@@ -1,18 +1,36 @@
-import { Input } from "@chakra-ui/react";
+import { Input, Select } from "@chakra-ui/react";
 
-const Form = ({ action, inputs = [] }) => {
+const Form = ({ action, inputs = [], title }) => {
   return (
     <form onSubmit={action} className="card flex flex-col gap-5">
-      {inputs.map((data) => {
-        return (
-          <div>
-            {data.label && <p className="text">{data.label}</p>}
-            <Input
-              isInvalid={data.isInvalid}
-              key={data.name}
+      {title && <h1 className="text text-2xl">{title}</h1>}
+      {inputs.map((data, index) => (
+        <div key={index}>
+          {data.label && <p className="text text-sm">{data.label}</p>}
+          {data.type === "select" ? (
+            <Select
+              size="sm"
+              rounded={5}
               value={data.value}
-              placeholder={data.placeholder}
-              name={data.name}
+              onChange={data.onChange}
+              isInvalid={data.isInvalid}
+              focusBorderColor={data.isInvalid ? "#F5E9DD" : "#E85D56"}
+              required={data.required}
+              placeholder="Select option"
+            >
+              {data.options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Select>
+          ) : (
+            <Input
+              size="sm"
+              rounded={5}
+              isInvalid={data.isInvalid}
+              value={data.value}
+              placeholder={data.placeholder || ""}
               type={data.type}
               onChange={data.onChange}
               required={data.required}
@@ -24,9 +42,9 @@ const Form = ({ action, inputs = [] }) => {
                 color: data.isInvalid ? "#E85D56" : "#F5E9DD",
               }}
             />
-          </div>
-        );
-      })}
+          )}
+        </div>
+      ))}
     </form>
   );
 };

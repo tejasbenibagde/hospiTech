@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useAddPatientForDoctorMutation } from "../../redux/api/doctorSlice";
 import { useSelector } from "react-redux";
-
+import { Input } from "@chakra-ui/react";
+import { Form } from "../../components";
 const AddPatient = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -39,7 +40,7 @@ const AddPatient = () => {
   });
 
   const [addPatient] = useAddPatientForDoctorMutation();
-  const handleFormSubmit1 = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(patient);
     try {
@@ -105,14 +106,64 @@ const AddPatient = () => {
 
   return (
     <div>
-      <form onSubmit={handleFormSubmit1}>
-        <input
+      {/* <Form
+        action={handleFormSubmit}
+        inputs={[
+          {
+            type: "text",
+            label: "Enter your name",
+            placeholder: "Enter your name",
+            name: "name",
+            value: patient.name,
+            onChange: (e) => setPatient({ ...patient, name: e.target.value }),
+            isInvalid: !patient.name,
+            required: true,
+          },
+          {
+            type: "date",
+            label: "Enter your Date Of Birth",
+            placeholder: "Enter your name",
+            name: "name",
+            isInvalid: !patient.date,
+            required: true,
+          },
+          {
+            type: "date",
+            label: "Enter your Contact Number",
+            placeholder: "Enter your name",
+            name: "name",
+            isInvalid: !patient.date,
+            required: true,
+          },
+          {
+            type: "date",
+            label: "Enter the SSN",
+            placeholder: "Enter your name",
+            name: "name",
+            isInvalid: !patient.date,
+            required: true,
+          },
+          {
+            type: "date",
+            label: "Enter the SSN",
+            placeholder: "Select Your Gender",
+            name: "name",
+            isInvalid: !patient.date,
+            required: true,
+          },
+        ]}
+      /> */}
+      <form onSubmit={handleFormSubmit} className="flex gap-5 flex-col">
+        <Input
+          isInvalid={patient.name === ""}
           type="text"
           placeholder="Name"
           value={patient.name}
           onChange={(e) => setPatient({ ...patient, name: e.target.value })}
+          focusBorderColor={patient.name !== "" ? "#F5E9DD" : "#E85D56"}
+          errorBorderColor="red.300"
         />
-        <input
+        <Input
           type="date"
           placeholder="Date of Birth"
           value={patient.dateOfBirth}
@@ -133,7 +184,7 @@ const AddPatient = () => {
           onChange={(e) => setPatient({ ...patient, contact: e.target.value })}
         />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <input
           type="text"
           placeholder="Emergency Contact Name"
@@ -177,7 +228,7 @@ const AddPatient = () => {
           }
         />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <input
           type="text"
           placeholder="SSN"
@@ -213,7 +264,7 @@ const AddPatient = () => {
           }
         />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <AddItem
           items={patient.medicalHistory.allergies}
           setItems={(item) => addItemToMedicalHistory("allergies", item)}
@@ -234,13 +285,13 @@ const AddPatient = () => {
           placeholder={"Surgeries"}
         />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <AddMedications addMedication={addMedication} />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <AddVaccinations addVaccination={addVaccination} />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <input
           type="text"
           placeholder="Name"
@@ -270,16 +321,16 @@ const AddPatient = () => {
           }
         />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <AddPrescriptions addPrescription={addPrescription} />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <AddInvoices addInvoice={addInvoice} />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <AddInsuranceClaims addInsuranceClaim={addInsuranceClaim} />
       </form>
-      <form onSubmit={handleFormSubmit1}>
+      <form onSubmit={handleFormSubmit}>
         <button type="submit">Submit</button>
       </form>
     </div>

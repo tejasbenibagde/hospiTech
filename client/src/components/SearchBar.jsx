@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { CiSearch } from "react-icons/ci";
 
 const SearchBar = ({ onSearch }) => {

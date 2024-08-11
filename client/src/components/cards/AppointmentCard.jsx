@@ -1,4 +1,4 @@
-import CircleButton from "../CircleButton";
+import CircleButton from "../ui/buttons/CircleButton";
 import { GoArrowUpRight, GoPencil, GoTrash } from "react-icons/go";
 import { useDeleteAppointmentByIDMutation } from "../../redux/api";
 import { useSelector } from "react-redux";

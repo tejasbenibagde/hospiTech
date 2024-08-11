@@ -1,4 +1,4 @@
-import CircleButton from "../CircleButton";
+import CircleButton from "../ui/buttons/CircleButton";
 import { GoArrowUpRight } from "react-icons/go";
 
 function PHistoryCard() {

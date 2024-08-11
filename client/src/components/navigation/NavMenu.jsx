@@ -1,7 +1,7 @@
 
 import { IoCloseSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import DarkModeToggle from "../DarkModeToggle";
+import DarkModeToggle from "../ui/buttons/DarkModeToggle";
 
 const links = [
   { id: 1, label: "Home", path: "/" },

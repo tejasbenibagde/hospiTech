@@ -1,4 +1,5 @@
 import { Input, Select } from "@chakra-ui/react";
+import ItemListManager from "./ItemListManager";
 
 const Form = ({ action, inputs = [], title }) => {
   return (
@@ -24,6 +25,12 @@ const Form = ({ action, inputs = [], title }) => {
                 </option>
               ))}
             </Select>
+          ) : data.type === "itemlist" ? (
+            <ItemListManager
+              items={data.items}
+              setItems={data.setItems}
+              placeholder={data.placeholder}
+            />
           ) : (
             <Input
               size="sm"

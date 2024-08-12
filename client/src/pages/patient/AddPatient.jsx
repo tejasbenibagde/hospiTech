@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useAddPatientForDoctorMutation } from "../../redux/api/doctorSlice";
 import { useSelector } from "react-redux";
-import { Input } from "@chakra-ui/react";
-import { Form } from "../../components";
+import { Form, ItemListManager } from "../../components";
 const AddPatient = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -242,6 +241,33 @@ const AddPatient = () => {
     },
   ];
 
+  const allergiesForm = [
+    {
+      type: "itemlist",
+      label: "Allergies",
+      placeholder: "e.g. peanuts",
+      items: patient.medicalHistory.allergies,
+      setItems: (item) => addItemToMedicalHistory("allergies", item),
+      isInvalid: !patient.medicalHistory.allergies,
+    },
+    {
+      type: "itemlist",
+      label: "Chronic Conditions",
+      placeholder: "e.g. fever",
+      items: patient.medicalHistory.chronicConditions,
+      setItems: (item) => addItemToMedicalHistory("chronicConditions", item),
+      isInvalid: !patient.medicalHistory.chronicConditions,
+    },
+    {
+      type: "itemlist",
+      label: "Surgeries",
+      placeholder: "e.g. fever",
+      items: patient.medicalHistory.surgeries,
+      setItems: (item) => addItemToMedicalHistory("surgeries", item),
+      isInvalid: !patient.medicalHistory.surgeries,
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-5">
       <Form
@@ -259,27 +285,11 @@ const AddPatient = () => {
         inputs={insuranceInformation}
         title={"Insurance Information"}
       />
-      <form onSubmit={handleFormSubmit}>
-        <AddItem
-          items={patient.medicalHistory.allergies}
-          setItems={(item) => addItemToMedicalHistory("allergies", item)}
-          placeholder={"Allergies"}
-        />
-
-        <AddItem
-          items={patient.medicalHistory.chronicConditions}
-          setItems={(item) =>
-            addItemToMedicalHistory("chronicConditions", item)
-          }
-          placeholder={"Chronic Conditions"}
-        />
-
-        <AddItem
-          items={patient.medicalHistory.surgeries}
-          setItems={(item) => addItemToMedicalHistory("surgeries", item)}
-          placeholder={"Surgeries"}
-        />
-      </form>
+      <Form
+        action={handleFormSubmit}
+        inputs={allergiesForm}
+        title={"Allergies"}
+      />
       <form onSubmit={handleFormSubmit}>
         <AddMedications addMedication={addMedication} />
       </form>

@@ -35,7 +35,6 @@ const ItemListManager = ({ items, setItems, placeholder }) => {
           }}
         />
         <Button
-          type="submit"
           onClick={handleFormSubmit}
           size="sm"
           rounded={5}
@@ -58,4 +57,36 @@ const ItemListManager = ({ items, setItems, placeholder }) => {
   );
 };
 
-export default ItemListManager;
+const MultiItemListManager = ({ form, add }) => {
+  return (
+    <div>
+      <div>
+        {form.map((data, index) => {
+          return (
+            <Input
+              key={index}
+              type="text"
+              name={data.name}
+              value={data.value}
+              onChange={(e) => add(data.name, e.target.value)}
+              placeholder={data.placeholder}
+              size="sm"
+              rounded={5}
+              focusBorderColor="#E85D56"
+              errorBorderColor="#E85D56"
+              color="#F5E9DD"
+              _placeholder={{
+                opacity: 1,
+                color: "#F5E9DD",
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default MultiItemListManager;
+
+export { ItemListManager, MultiItemListManager };

@@ -1,3 +1,3 @@
 import Form from "./Form";
-import ItemListManager from "./ItemListManager";
-export { Form, ItemListManager };
+import { ItemListManager, MultiItemListManager } from "./ItemListManager";
+export { Form, ItemListManager, MultiItemListManager };

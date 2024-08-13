@@ -268,6 +268,27 @@ const AddPatient = () => {
     },
   ];
 
+  const medicationsForm = [
+    {
+      type: "multiItemList",
+      form: [
+        {
+          name: "name",
+          placeholder: "Medication Name",
+        },
+        {
+          name: "dosage",
+          placeholder: "Dosage",
+        },
+        {
+          name: "frequency",
+          placeholder: "Frequency",
+        },
+      ],
+      add: addMedication,
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-5">
       <Form
@@ -290,6 +311,7 @@ const AddPatient = () => {
         inputs={allergiesForm}
         title={"Allergies"}
       />
+      <Form inputs={medicationsForm} title={"Medications"} />
       <form onSubmit={handleFormSubmit}>
         <AddMedications addMedication={addMedication} />
       </form>

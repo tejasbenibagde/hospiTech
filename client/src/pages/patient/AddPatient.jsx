@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAddPatientForDoctorMutation } from "../../redux/api/doctorSlice";
 import { useSelector } from "react-redux";
 import { Form, ItemListManager } from "../../components";
+
 const AddPatient = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -62,12 +63,12 @@ const AddPatient = () => {
     }));
   };
 
-  const addMedication = (medication) => {
-    setPatient((prevState) => ({
-      ...prevState,
-      medications: [...prevState.medications, medication],
-    }));
-  };
+  // const addMedication = (medication) => {
+  //   setPatient((prevState) => ({
+  //     ...prevState,
+  //     medications: [...prevState.medications, medication],
+  //   }));
+  // };
 
   const addVaccination = (vaccination) => {
     setPatient((prevState) => ({
@@ -267,25 +268,59 @@ const AddPatient = () => {
       isInvalid: !patient.medicalHistory.surgeries,
     },
   ];
+  const [medicationState, setMedicationState] = useState({
+    name: "",
+    dosage: "",
+    frequency: "",
+  });
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setMedicationState((prevMedication) => ({
+      ...prevMedication,
+      [name]: value,
+    }));
+  };
+  const handleAddMedication = (e) => {
+    e.preventDefault();
+    if (
+      medicationState.name &&
+      medicationState.dosage &&
+      medicationState.frequency
+    ) {
+      console.log("Medication State:", medicationState);
+      // Add kelya vr ya state la main state mdhe push krach logic baaki ahe kripaya shantata thevave
+      setMedicationState({
+        name: "",
+        dosage: "",
+        frequency: "",
+      });
+    }
+  };
   const medicationsForm = [
     {
       type: "multiItemList",
       form: [
         {
           name: "name",
+          value: medicationState.name,
           placeholder: "Medication Name",
+          onChange: handleInputChange,
         },
         {
           name: "dosage",
+          value: medicationState.dosage,
           placeholder: "Dosage",
+          onChange: handleInputChange,
         },
         {
           name: "frequency",
+          value: medicationState.frequency,
           placeholder: "Frequency",
+          onChange: handleInputChange,
         },
       ],
-      add: addMedication,
+      add: handleAddMedication,
     },
   ];
 
@@ -313,7 +348,7 @@ const AddPatient = () => {
       />
       <Form inputs={medicationsForm} title={"Medications"} />
       <form onSubmit={handleFormSubmit}>
-        <AddMedications addMedication={addMedication} />
+        <AddMedications addMedication={handleAddMedication} />
       </form>
       <form onSubmit={handleFormSubmit}>
         <AddVaccinations addVaccination={addVaccination} />

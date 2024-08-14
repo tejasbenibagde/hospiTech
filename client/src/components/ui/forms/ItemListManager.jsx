@@ -61,28 +61,28 @@ const MultiItemListManager = ({ form, add }) => {
   return (
     <div>
       <div>
-        {form.map((data, index) => {
-          return (
-            <Input
-              key={index}
-              type="text"
-              name={data.name}
-              value={data.value}
-              onChange={(e) => add(data.name, e.target.value)}
-              placeholder={data.placeholder}
-              size="sm"
-              rounded={5}
-              focusBorderColor="#E85D56"
-              errorBorderColor="#E85D56"
-              color="#F5E9DD"
-              _placeholder={{
-                opacity: 1,
-                color: "#F5E9DD",
-              }}
-            />
-          );
-        })}
+        {form.map((data, index) => (
+          <Input
+            key={index}
+            type="text"
+            name={data.name}
+            value={data.value}
+            onChange={data.onChange}
+            placeholder={data.placeholder}
+            size="sm"
+            rounded={5}
+            focusBorderColor="#E85D56"
+            errorBorderColor="#E85D56"
+            color="#F5E9DD"
+            _placeholder={{
+              opacity: 1,
+              color: "#F5E9DD",
+            }}
+          />
+        ))}
       </div>
+      <Button onClick={add}>Add</Button>{" "}
+      {/* Add button triggers the add function */}
     </div>
   );
 };

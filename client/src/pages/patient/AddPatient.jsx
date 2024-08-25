@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAddPatientForDoctorMutation } from "../../redux/api/doctorSlice";
 import { useSelector } from "react-redux";
-import { Form, ItemListManager } from "../../components";
+import { Form } from "../../components";
 
 const AddPatient = () => {
   const { user } = useSelector((state) => state.auth);
@@ -43,14 +43,14 @@ const AddPatient = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(patient);
-    // try {
-    //   const newPatient = { ...patient };
-    //   await addPatient({ doctorID: user._id, patient: newPatient }).unwrap();
-    //   alert("Patient added successfully");
-    // } catch (err) {
-    //   console.error("Failed to add patient:", err);
-    //   alert("Failed to add patient");
-    // }
+    try {
+      const newPatient = { ...patient };
+      await addPatient({ doctorID: user._id, patient: newPatient }).unwrap();
+      alert("Patient added successfully");
+    } catch (err) {
+      console.error("Failed to add patient:", err);
+      alert("Failed to add patient");
+    }
   };
 
   const addItemToMedicalHistory = (key, item) => {
@@ -63,49 +63,9 @@ const AddPatient = () => {
     }));
   };
 
-  // const addMedication = (medication) => {
-  //   setPatient((prevState) => ({
-  //     ...prevState,
-  //     medications: [...prevState.medications, medication],
-  //   }));
-  // };
-
-  const addVaccination = (vaccination) => {
-    setPatient((prevState) => ({
-      ...prevState,
-      vaccinations: [...prevState.vaccinations, vaccination],
-    }));
-  };
-
-  const addPrescription = (prescription) => {
-    setPatient((prevState) => ({
-      ...prevState,
-      prescriptions: [...prevState.prescriptions, prescription],
-    }));
-  };
-
-  const addInvoice = (invoice) => {
-    setPatient((prevState) => ({
-      ...prevState,
-      billing: {
-        ...prevState.billing,
-        invoices: [...prevState.billing.invoices, invoice],
-      },
-    }));
-  };
-
-  const addInsuranceClaim = (claim) => {
-    setPatient((prevState) => ({
-      ...prevState,
-      billing: {
-        ...prevState.billing,
-        insuranceClaims: [...prevState.billing.insuranceClaims, claim],
-      },
-    }));
-  };
-
   const registrationForm = [
     {
+      name: "name",
       type: "text",
       label: "Enter your name",
       placeholder: "e.g. John Smith",
@@ -115,6 +75,7 @@ const AddPatient = () => {
       required: true,
     },
     {
+      name: "dateOfBirth",
       type: "date",
       label: "Enter your Date Of Birth",
       value: patient.dateOfBirth,
@@ -124,6 +85,7 @@ const AddPatient = () => {
       required: true,
     },
     {
+      name: "contact",
       type: "number",
       label: "Enter your Contact Number",
       placeholder: "Enter your contact number",
@@ -273,11 +235,58 @@ const AddPatient = () => {
     dosage: "",
     frequency: "",
   });
+  const [prescriptionState, setPrescriptionState] = useState({
+    name: "",
+    dosage: "",
+    instructions: "",
+  });
+  const [vaccination, setVaccination] = useState({
+    name: "",
+    date: "",
+  });
+  const [invoice, setInvoice] = useState({
+    invoiceNumber: "",
+    amount: "",
+    status: "",
+  });
+  const [claims, setClaims] = useState({
+    claimNumber: "",
+    amount: "",
+    status: "",
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setMedicationState((prevMedication) => ({
       ...prevMedication,
+      [name]: value,
+    }));
+  };
+  const handleInputChangeForPrescription = (e) => {
+    const { name, value } = e.target;
+    setPrescriptionState((prevMedication) => ({
+      ...prevMedication,
+      [name]: value,
+    }));
+  };
+  const handleInputChangeForInvoice = (e) => {
+    const { name, value } = e.target;
+    setInvoice((prevInvoice) => ({
+      ...prevInvoice,
+      [name]: value,
+    }));
+  };
+  const handleInputChangeForClaims = (e) => {
+    const { name, value } = e.target;
+    setClaims((prevClaim) => ({
+      ...prevClaim,
+      [name]: value,
+    }));
+  };
+  const handleInputChangeForVaccination = (e) => {
+    const { name, value } = e.target;
+    setVaccination((prevVaccination) => ({
+      ...prevVaccination,
       [name]: value,
     }));
   };
@@ -289,7 +298,13 @@ const AddPatient = () => {
       medicationState.frequency
     ) {
       console.log("Medication State:", medicationState);
-      // Add kelya vr ya state la main state mdhe push krach logic baaki ahe kripaya shantata thevave
+      setPatient((prevState) => ({
+        ...prevState,
+        medications: Array.isArray(prevState.medications)
+          ? [...prevState.medications, medicationState]
+          : [medicationState],
+      }));
+      console.log(patient);
       setMedicationState({
         name: "",
         dosage: "",
@@ -297,30 +312,264 @@ const AddPatient = () => {
       });
     }
   };
+  const handleAddPrescription = (e) => {
+    e.preventDefault();
+    if (
+      prescriptionState.name &&
+      prescriptionState.dosage &&
+      prescriptionState.frequency
+    ) {
+      console.log("Prescription State", prescriptionState);
+      setPatient((prevState) => ({
+        ...prevState,
+        prescriptions: Array.isArray(prevState.prescriptions)
+          ? [...prevState.prescriptions, prescriptionState]
+          : [prescriptionState],
+      }));
+      console.log(patient);
+      setPrescriptionState({
+        name: "",
+        dosage: "",
+        instructions: "",
+      });
+    }
+  };
+  const handleAddInvoice = (e) => {
+    e.preventDefault();
+    if (invoice.number && invoice.amount && invoice.status) {
+      setPatient((prevState) => ({
+        ...prevState,
+        billing: {
+          ...prevState.billing,
+          invoices: Array.isArray(prevState.billing.invoices)
+            ? [...prevState.billing.invoices, invoice]
+            : [invoice],
+        },
+      }));
+      console.log("Invoices", invoice);
+      console.log(patient);
+      setInvoice({
+        invoiceNumber: "",
+        amount: "",
+        status: "",
+      });
+    }
+  };
+  const handleAddClaims = (e) => {
+    e.preventDefault();
+    if (claims.claimNumber && claims.amount && claims.status) {
+      setPatient((prevState) => ({
+        ...prevState,
+        billing: {
+          ...prevState.billing,
+          insuranceClaims: Array.isArray(prevState.billing.insuranceClaims)
+            ? [...prevState.billing.insuranceClaims, claims]
+            : [claims],
+        },
+      }));
+      console.log("Claims", claims);
+      console.log(patient);
+      setClaims({
+        claimNumber: "",
+        amount: "",
+        status: "",
+      });
+    }
+  };
+
+  const handleAddVaccination = (e) => {
+    e.preventDefault();
+    if (vaccination.name && vaccination.date) {
+      console.log("Vaccination State:", vaccination);
+      setPatient((prevState) => ({
+        ...prevState,
+        vaccinations: Array.isArray(prevState.vaccinations)
+          ? [...prevState.vaccinations, vaccination]
+          : [vaccination],
+      }));
+      console.log(patient);
+      setVaccination({
+        name: "",
+        date: "",
+      });
+    }
+  };
+
   const medicationsForm = [
     {
       type: "multiItemList",
       form: [
         {
           name: "name",
+          type: "text",
           value: medicationState.name,
           placeholder: "Medication Name",
           onChange: handleInputChange,
         },
         {
           name: "dosage",
+          type: "text",
           value: medicationState.dosage,
           placeholder: "Dosage",
           onChange: handleInputChange,
         },
         {
           name: "frequency",
+          type: "text",
           value: medicationState.frequency,
           placeholder: "Frequency",
           onChange: handleInputChange,
         },
       ],
       add: handleAddMedication,
+    },
+  ];
+  const vaccinationForm = [
+    {
+      type: "multiItemList",
+      form: [
+        {
+          name: "name",
+          type: "text",
+          value: vaccination.name,
+          placeholder: "Vaccination Name",
+          onChange: handleInputChangeForVaccination,
+        },
+        {
+          type: "date",
+          label: "Enter your Date Of Birth",
+          value: vaccination.date,
+          onChange: (e) =>
+            setVaccination({ ...vaccination, date: e.target.value }),
+          isInvalid:
+            !vaccination.date || new Date(vaccination.date) > new Date(),
+          required: true,
+        },
+      ],
+      add: handleAddVaccination,
+    },
+  ];
+  const physicianForm = [
+    {
+      type: "text",
+      label: "Name",
+      placeholder: "e.g. Jane Doe",
+      value: patient.primaryCarePhysician.name,
+      onChange: (e) =>
+        setPatient({
+          ...patient,
+          primaryCarePhysician: {
+            ...patient.primaryCarePhysician,
+            name: e.target.value,
+          },
+        }),
+      isInvalid: !patient.primaryCarePhysician.name,
+      required: true,
+    },
+    {
+      type: "number",
+      label: "Contact Details",
+      placeholder: "e.g. +123 456",
+      value: patient.primaryCarePhysician.contact,
+      onChange: (e) =>
+        setPatient({
+          ...patient,
+          primaryCarePhysician: {
+            ...patient.primaryCarePhysician,
+            contact: e.target.value,
+          },
+        }),
+      isInvalid: !patient.primaryCarePhysician.contact,
+      required: true,
+    },
+  ];
+
+  const prescriptionsForm = [
+    {
+      type: "multiItemList",
+      form: [
+        {
+          name: "name",
+          type: "text",
+          value: prescriptionState.name,
+          placeholder: "Medication Name",
+          onChange: handleInputChangeForPrescription,
+        },
+        {
+          name: "dosage",
+          type: "text",
+          value: prescriptionState.dosage,
+          placeholder: "Dosage",
+          onChange: handleInputChangeForPrescription,
+        },
+        {
+          name: "instructions",
+          type: "text",
+          value: prescriptionState.instructions,
+          placeholder: "instructions",
+          onChange: handleInputChangeForPrescription,
+        },
+      ],
+      add: handleAddPrescription,
+    },
+  ];
+
+  const invoiceForm = [
+    {
+      type: "multiItemList",
+      form: [
+        {
+          name: "invoiceNumber",
+          type: "text",
+          value: invoice.number,
+          placeholder: "Invoice Number",
+          onChange: handleInputChangeForInvoice,
+        },
+        {
+          name: "amount",
+          type: "number",
+          value: invoice.amount,
+          placeholder: "Amount",
+          onChange: handleInputChangeForInvoice,
+        },
+        {
+          name: "status",
+          type: "text",
+          value: invoice.status,
+          placeholder: "Status",
+          onChange: handleInputChangeForInvoice,
+        },
+      ],
+      add: handleAddInvoice,
+    },
+  ];
+  const insuranceClaimsForm = [
+    {
+      type: "multiItemList",
+      form: [
+        {
+          name: "claimNumber",
+          type: "number",
+          value: claims.claimNumber,
+          placeholder: "Invoice Number",
+          onChange: handleInputChangeForClaims,
+        },
+        {
+          name: "amount",
+          type: "number",
+          value: claims.amount,
+          placeholder: "Amount",
+          onChange: handleInputChangeForClaims,
+        },
+        {
+          name: "status",
+          type: "text",
+          value: claims.status,
+          placeholder: "Status",
+          onChange: handleInputChangeForClaims,
+        },
+      ],
+      add: handleAddClaims,
     },
   ];
 
@@ -347,362 +596,14 @@ const AddPatient = () => {
         title={"Allergies"}
       />
       <Form inputs={medicationsForm} title={"Medications"} />
-      <form onSubmit={handleFormSubmit}>
-        <AddMedications addMedication={handleAddMedication} />
-      </form>
-      <form onSubmit={handleFormSubmit}>
-        <AddVaccinations addVaccination={addVaccination} />
-      </form>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={patient.primaryCarePhysician.name}
-          onChange={(e) =>
-            setPatient({
-              ...patient,
-              primaryCarePhysician: {
-                ...patient.primaryCarePhysician,
-                name: e.target.value,
-              },
-            })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Contact"
-          value={patient.primaryCarePhysician.contact}
-          onChange={(e) =>
-            setPatient({
-              ...patient,
-              primaryCarePhysician: {
-                ...patient.primaryCarePhysician,
-                contact: e.target.value,
-              },
-            })
-          }
-        />
-      </form>
-      <form onSubmit={handleFormSubmit}>
-        <AddPrescriptions addPrescription={addPrescription} />
-      </form>
-      <form onSubmit={handleFormSubmit}>
-        <AddInvoices addInvoice={addInvoice} />
-      </form>
-      <form onSubmit={handleFormSubmit}>
-        <AddInsuranceClaims addInsuranceClaim={addInsuranceClaim} />
-      </form>
+      <Form inputs={vaccinationForm} title={"Vaccinations"} />
+      <Form inputs={physicianForm} title={"Primary Care Physician"} />
+      <Form inputs={prescriptionsForm} title={"Prescriptions"} />
+      <Form inputs={invoiceForm} title={"Invoice"} />
+      <Form inputs={insuranceClaimsForm} title={"Insurance Claims"} />
       <form onSubmit={handleFormSubmit}>
         <button type="submit">Submit</button>
       </form>
-    </div>
-  );
-};
-
-const AddItem = ({ items, setItems, placeholder }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue.trim() !== "") {
-      setItems(inputValue);
-      setInputValue("");
-    }
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        placeholder={placeholder}
-      />
-      <button type="submit" onClick={handleFormSubmit}>
-        Add
-      </button>
-      <div>
-        {items.map((item, index) => (
-          <div key={index}>{item}</div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const AddMedications = ({ addMedication }) => {
-  const [medication, setMedication] = useState({
-    name: "",
-    dosage: "",
-    frequency: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setMedication((prevMedication) => ({
-      ...prevMedication,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (medication.name && medication.dosage && medication.frequency) {
-      addMedication(medication);
-      setMedication({
-        name: "",
-        dosage: "",
-        frequency: "",
-      });
-    }
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        name="name"
-        value={medication.name}
-        onChange={handleInputChange}
-        placeholder="Medication Name"
-      />
-      <input
-        type="text"
-        name="dosage"
-        value={medication.dosage}
-        onChange={handleInputChange}
-        placeholder="Dosage"
-      />
-      <input
-        type="text"
-        name="frequency"
-        value={medication.frequency}
-        onChange={handleInputChange}
-        placeholder="Frequency"
-      />
-      <button type="submit" onClick={handleFormSubmit}>
-        Add Medication
-      </button>
-    </div>
-  );
-};
-
-const AddVaccinations = ({ addVaccination }) => {
-  const [vaccination, setVaccination] = useState({
-    name: "",
-    date: "",
-  });
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setVaccination((prevVaccination) => ({
-      ...prevVaccination,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (vaccination.name && vaccination.date) {
-      addVaccination(vaccination);
-      setVaccination({
-        name: "",
-        date: "",
-      });
-    }
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        name="name"
-        value={vaccination.name}
-        onChange={handleInputChange}
-        placeholder="Vaccination Name"
-      />
-      <input
-        type="date"
-        name="date"
-        value={vaccination.date}
-        onChange={handleInputChange}
-        placeholder="Date"
-      />
-      <button type="submit" onClick={handleFormSubmit}>
-        Add Vaccination
-      </button>
-    </div>
-  );
-};
-
-const AddPrescriptions = ({ addPrescription }) => {
-  const [prescription, setPrescription] = useState({
-    name: "",
-    dosage: "",
-    instructions: "",
-  });
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setPrescription((prevPrescription) => ({
-      ...prevPrescription,
-      [name]: value,
-    }));
-  };
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (prescription.name && prescription.dosage && prescription.instructions) {
-      addPrescription(prescription);
-      setPrescription({
-        name: "",
-        dosage: "",
-        instructions: "",
-      });
-    }
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        name="name"
-        value={prescription.name}
-        onChange={handleInputChange}
-        placeholder="Medication Name"
-      />
-      <input
-        type="text"
-        name="dosage"
-        value={prescription.dosage}
-        onChange={handleInputChange}
-        placeholder="Dosage"
-      />
-      <input
-        type="text"
-        name="instructions"
-        value={prescription.instructions}
-        onChange={handleInputChange}
-        placeholder="Instructions"
-      />
-      <button type="submit" onClick={handleFormSubmit}>
-        Add Prescription
-      </button>
-    </div>
-  );
-};
-
-const AddInvoices = ({ addInvoice }) => {
-  const [invoice, setInvoice] = useState({
-    invoiceNumber: "",
-    amount: "",
-    status: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInvoice((prevInvoice) => ({
-      ...prevInvoice,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (invoice.invoiceNumber && invoice.amount && invoice.status) {
-      addInvoice(invoice);
-      setInvoice({
-        invoiceNumber: "",
-        amount: "",
-        status: "",
-      });
-    }
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        name="invoiceNumber"
-        value={invoice.invoiceNumber}
-        onChange={handleInputChange}
-        placeholder="Invoice Number"
-      />
-      <input
-        type="number"
-        name="amount"
-        value={invoice.amount}
-        onChange={handleInputChange}
-        placeholder="Amount"
-      />
-      <input
-        type="text"
-        name="status"
-        value={invoice.status}
-        onChange={handleInputChange}
-        placeholder="Status"
-      />
-      <button type="submit" onClick={handleFormSubmit}>
-        Add Invoice
-      </button>
-    </div>
-  );
-};
-
-const AddInsuranceClaims = ({ addInsuranceClaim }) => {
-  const [claim, setClaim] = useState({
-    claimNumber: "",
-    amount: "",
-    status: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setClaim((prevClaim) => ({
-      ...prevClaim,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (claim.claimNumber && claim.amount && claim.status) {
-      addInsuranceClaim(claim);
-      setClaim({
-        claimNumber: "",
-        amount: "",
-        status: "",
-      });
-    }
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        name="claimNumber"
-        value={claim.claimNumber}
-        onChange={handleInputChange}
-        placeholder="Claim Number"
-      />
-      <input
-        type="number"
-        name="amount"
-        value={claim.amount}
-        onChange={handleInputChange}
-        placeholder="Amount"
-      />
-      <input
-        type="text"
-        name="status"
-        value={claim.status}
-        onChange={handleInputChange}
-        placeholder="Status"
-      />
-      <button type="submit" onClick={handleFormSubmit}>
-        Add Claim
-      </button>
     </div>
   );
 };

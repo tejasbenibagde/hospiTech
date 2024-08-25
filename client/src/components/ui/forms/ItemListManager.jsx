@@ -62,23 +62,25 @@ const MultiItemListManager = ({ form, add }) => {
     <div>
       <div>
         {form.map((data, index) => (
-          <Input
-            key={index}
-            type="text"
-            name={data.name}
-            value={data.value}
-            onChange={data.onChange}
-            placeholder={data.placeholder}
-            size="sm"
-            rounded={5}
-            focusBorderColor="#E85D56"
-            errorBorderColor="#E85D56"
-            color="#F5E9DD"
-            _placeholder={{
-              opacity: 1,
-              color: "#F5E9DD",
-            }}
-          />
+          <div key={index}>
+            {data.label && <p className="text text-sm">{data.label}</p>}
+            <Input
+              type={data.type}
+              name={data.name}
+              value={data.value}
+              onChange={data.onChange}
+              placeholder={data.placeholder}
+              size="sm"
+              rounded={5}
+              focusBorderColor="#E85D56"
+              errorBorderColor="#E85D56"
+              color="#F5E9DD"
+              _placeholder={{
+                opacity: 1,
+                color: "#F5E9DD",
+              }}
+            />
+          </div>
         ))}
       </div>
       <Button onClick={add}>Add</Button>{" "}

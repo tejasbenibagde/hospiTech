@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAddPatientForDoctorMutation } from "../../redux/api/doctorSlice";
 import { useSelector } from "react-redux";
 import { Form } from "../../components";
+import { Button } from "@chakra-ui/react";
 
 const AddPatient = () => {
   const { user } = useSelector((state) => state.auth);
@@ -602,7 +603,7 @@ const AddPatient = () => {
       <Form inputs={invoiceForm} title={"Invoice"} />
       <Form inputs={insuranceClaimsForm} title={"Insurance Claims"} />
       <form onSubmit={handleFormSubmit}>
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

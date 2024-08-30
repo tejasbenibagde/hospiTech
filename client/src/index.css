@@ -6,16 +6,15 @@
 
 #root {
   font-family: "Outfit", sans-serif;
-  @apply relative w-[100vw] overflow-hidden box-border m-0 p-0
+  @apply relative w-[100vw] overflow-hidden box-border m-0 p-0;
 }
 
 .text {
   @apply text-color-light dark:text-color-dark;
 }
 
-
 .card {
-  @apply w-full bg-card-bg rounded-2xl p-5;
+  @apply w-full dark:bg-card-bg rounded-2xl p-5 bg-card-bglight;
 }
 
 /* body{
@@ -23,10 +22,7 @@
   items:center;
   justify-content:center;
 } */
- 
-.home-card{
+
+.home-card {
   border-bottom-right-radius: 130px;
 }
-
-
-

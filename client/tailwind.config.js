@@ -8,6 +8,7 @@ export default {
         primary: "#E85D56",
         card: {
           bg: "rgba(0,0,0,0.15)",
+          bglight:"rgba(245,233,221,0.40)"
         },
         background: {
           light: "#F5E9DD",

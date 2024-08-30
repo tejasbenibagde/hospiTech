@@ -5,6 +5,8 @@ import {
   useGetPatientByIDQuery,
 } from "../../redux/api/doctorSlice";
 
+import { IoMdAdd } from "react-icons/io";
+
 const Patients = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -15,12 +17,6 @@ const Patients = () => {
   } = useGetPatientsByDoctorQuery(user._id);
 
   if (patientsLoading) return <div>Loading...</div>;
-  if (patientsError)
-    return (
-      <div>
-        Error: {patientsError.data?.message || "Couldn't load the Patients"}
-      </div>
-    );
 
   return (
     <div className="flex flex-col gap-5">
@@ -40,9 +36,9 @@ const Patients = () => {
         <div>
           <Link
             to={"/add-patient"}
-            className="text w-10 h-10 bg-card-bg rounded-full flex items-center justify-center"
+            className="h-10 w-10 bg-primary flex items-center justify-center rounded-full"
           >
-            +
+            <IoMdAdd size={20} color={"#F5E9DD"} />
           </Link>
         </div>
       </div>

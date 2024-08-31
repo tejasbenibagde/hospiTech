@@ -1,6 +1,6 @@
 import { FiBell } from "react-icons/fi";
 import { TfiLineDouble } from "react-icons/tfi";
-
+import { RiLoginCircleLine } from "react-icons/ri";
 import NavMenu from "./NavMenu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -32,9 +32,13 @@ function Nav() {
                             </button>
                         </>
                     ) : (
-                        <div className="flex items-center justify-center gap-5">
+                        <div className="flex items-center justify-center gap-2.5">
                             <DarkModeToggle />
-                            <Link to={"/login"} className="text">Login</Link>
+                            <Link
+                                to={"/login"}
+                                className="text p-2 bg-primary text-color-light dark:text-color-light rounded-full shadow-md shadow-primary">
+                                <RiLoginCircleLine color="rgb(245 233 221)" />
+                            </Link>
                         </div>
                     )}
                 </div>

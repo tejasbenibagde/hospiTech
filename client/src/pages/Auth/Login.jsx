@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLoginMutation } from "../../redux/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../redux/features/auth/authSlice";
 import { Button, Input } from "@chakra-ui/react";
 
@@ -9,6 +9,8 @@ const Login = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
+
+  const isDarkMode = useSelector((state) => state.darkMode.isDarkMode);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,7 +50,7 @@ const Login = () => {
           required={true}
           focusBorderColor={!user.email ? "#F5E9DD" : "#E85D56"}
           errorBorderColor="#E85D56"
-          color="#F5E9DD"
+          color={isDarkMode ? "#F5E9DD" : "#494949"} 
           _placeholder={{
             opacity: 1,
             color: !user.email ? "#E85D56" : "#F5E9DD",
@@ -64,7 +66,7 @@ const Login = () => {
           value={user.password}
           onChange={handleChange}
           type="password"
-          color="#F5E9DD"
+          color={isDarkMode ? "#F5E9DD" : "#494949"} 
           errorBorderColor="#E85D56"
           placeholder="Password"
           className="mb-4"

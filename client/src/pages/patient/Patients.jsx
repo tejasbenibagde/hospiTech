@@ -4,8 +4,10 @@ import {
   useGetPatientsByDoctorQuery,
   useGetPatientByIDQuery,
 } from "../../redux/api/doctorSlice";
+import { truncate, copyToClipboard } from "../../utils";
 
 import { IoMdAdd } from "react-icons/io";
+import { IoCopy } from "react-icons/io5";
 
 const Patients = () => {
   const { user } = useSelector((state) => state.auth);
@@ -48,11 +50,21 @@ const Patients = () => {
             <div className="flex w-full items-center justify-between">
               <h2 className="text">
                 {patient.name}{" "}
-                <span className="bg-primary p-[2px] rounded-lg">
+                <span className="bg-primary px-1 rounded-lg">
                   {patient.gender === "Female" ? "F" : "M"}
                 </span>
               </h2>
-              <p className="text-primary font-[900]">{patient._id}</p>
+              <div className="flex flex-row gap-1 items-center justify-center">
+                <p className="text-primary font-[900]">
+                  {truncate(patient._id)}
+                </p>
+                <button
+                  onClick={() => copyToClipboard(patient._id)}
+                  className="p-1 bg-[#00000024] rounded-full"
+                >
+                  <IoCopy color="red" />
+                </button>
+              </div>
             </div>
             <div className="flex w-full items-end justify-between">
               <div>

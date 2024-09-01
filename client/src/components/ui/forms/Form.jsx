@@ -18,6 +18,8 @@ const Form = ({ action, inputs = [], title }) => {
               focusBorderColor={data.isInvalid ? "#F5E9DD" : "#E85D56"}
               required={data.required}
               placeholder="Select option"
+              className="text"
+              style={{color: !data.isInvalid ? "#F5E9DD" : "#E85D56"}}
             >
               {data.options.map((option) => (
                 <option key={option.value} value={option.value}>

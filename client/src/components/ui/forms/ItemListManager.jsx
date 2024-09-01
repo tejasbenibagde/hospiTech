@@ -60,7 +60,7 @@ const ItemListManager = ({ items, setItems, placeholder }) => {
 const MultiItemListManager = ({ form, add }) => {
   return (
     <div>
-      <div>
+      <div className="flex flex-col gap-5">
         {form.map((data, index) => (
           <div key={index}>
             {data.label && <p className="text text-sm">{data.label}</p>}
@@ -82,9 +82,8 @@ const MultiItemListManager = ({ form, add }) => {
             />
           </div>
         ))}
+        <Button onClick={add}>Add</Button>{" "}
       </div>
-      <Button onClick={add}>Add</Button>{" "}
-      {/* Add button triggers the add function */}
     </div>
   );
 };
